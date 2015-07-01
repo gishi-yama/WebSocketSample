@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script>
+
+	var ws = new WebSocket("wss://cist-chat.herokuapp.com/chat");
+	var iam = "TestUser"
+
+	ws.onopen = function() {
+		var logP = document.createElement("p");
+		var logStr = document.createTextNode(iam + "として接続しました");
+		logP.appendChild(logStr);
+		document.getElementById("logs").appendChild(logP);
+	};
+
+	ws.onmessage = function(message) {
+		var logP = document.createElement("p");
+		var logStr = document.createTextNode(message.data);
+		logP.appendChild(logStr);
+		document.getElementById("logs").appendChild(logP);
+	};
+
+	function postToServer() {
+		var postMessage = iam + "：" + document.getElementById("msg").value
+		ws.send(postMessage);
+		document.getElementById("msg").value = "";
+	}
+
+	function closeConnect() {
+		ws.close();
+		var logP = document.createElement("p");
+		var logStr = document.createTextNode("終了しました");
+		logP.appendChild(logStr);
+		document.getElementById("logs").appendChild(logP);
+	}
+</script>
+</head>
+<body>
+	<div>
+		<input id="msg" type="text" />
+		<button type="submit" onClick="postToServer()">Send!</button>
+		<button type="submit" onClick="closeConnect()">End</button>
+	</div>
+	<div id="logs"></div>
+</body>
+</html>
