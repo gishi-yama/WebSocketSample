@@ -6,7 +6,7 @@
 
 	var port = "";
 	if (window.location.host.search(".rhcloud.com") > 0) {
-		port window.location.protocol == "https" ? ":8084" : ":8000";
+		port = window.location.protocol == "https" ? ":8084" : ":8000";
 	}
 
 	var host = location.origin.replace(/^http/, "ws");
@@ -22,7 +22,7 @@
 		ws.send(iam + " が切断しました");
 		// 切断が完全に完了したかどうか
 		closed = event.wasClean ? "完了" : "未完了";
-		console.log("closed... " + closed + "," + event.code "," + event.reason);
+		console.log("closed... " + closed + "," + event.code + "," + event.reason);
 	}
 
 	ws.onmessage = function(message) {
