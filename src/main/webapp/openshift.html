@@ -3,16 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <script>
-
-	var port = "";
-	if (window.location.host.search(".rhcloud.com") > 0) {
-		port window.location.protocol == "https" ? ":8084" : ":8000";
-	}
-
-	var host = location.origin.replace(/^http/, "ws");
-	var context = window.location.pathname.substring(0,window.location.pathname.indexOf("/", 2));
-	var ws = new WebSocket(host + port + context + "/chat");
-	var iam = "Hanako"
+	var ws = new WebSocket("wss://chat-cist.rhcloud.com:8443/chat");
+	var iam = "Taro"
 
 	ws.onopen = function() {
 		ws.send(iam + " が接続しました");
